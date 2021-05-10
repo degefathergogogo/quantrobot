@@ -9,9 +9,9 @@ python - 量化策略机器人
 ### 说明
 完整项目联系qq:979095879  
 可直接进行运营或者二次开发  
-白嫖党勿扰  
+价格便宜,白嫖党勿扰  
 
-![微信截图_20210510150916(1)](https://user-images.githubusercontent.com/83943063/117621590-54c6ce00-b1a4-11eb-95b4-d42ba2662188.png)
+![微信截图_20210510153521](https://user-images.githubusercontent.com/83943063/117622616-665ca580-b1a5-11eb-8547-06703341257f.png)
 
 
 ![微信截图_20210510151934](https://user-images.githubusercontent.com/83943063/117621679-6a3bf800-b1a4-11eb-8874-db55de7b604d.png)
@@ -21,9 +21,6 @@ python - 量化策略机器人
 
 
 ![微信截图_20210510152636](https://user-images.githubusercontent.com/83943063/117621706-7031d900-b1a4-11eb-8730-fc7286775391.png)
-
-
-![微信截图_20210510151934](https://user-images.githubusercontent.com/83943063/117621785-89d32080-b1a4-11eb-93a9-636b4f8aff2b.png)
 
 
 ![aa](https://user-images.githubusercontent.com/83943063/117619830-5394a180-b1a2-11eb-89d2-e3e039d798de.png)
