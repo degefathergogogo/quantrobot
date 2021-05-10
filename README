@@ -1,0 +1,3 @@
+部署说明：
+1. data/runtime目录777权限
+2. public/upload 目录777权限
