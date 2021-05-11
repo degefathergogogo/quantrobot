@@ -1,0 +1,37 @@
+<include file="theme/functions"/>
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>编辑数据</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('theme/fileArrayData',['tab'=>$tab,'var'=>$var,'file_id'=>$file_id,'widget'=>$widget])}" class="btn btn-primary btn-xs">所有数据</a>
+                        <heq name="item_index" value="">
+                            <a href="#" class="btn btn-primary btn-xs active">添加数据</a>
+                            <else />
+                            <a href="{:url('theme/fileArrayDataEdit',['tab'=>$tab,'var'=>$var,'file_id'=>$file_id,'widget'=>$widget])}" class="btn btn-primary btn-xs">添加数据</a>
+                            <a href="" class="btn btn-primary btn-xs">编辑数据</a>
+                        </heq>
+                    </div>
+                    </div>
+                        <div class="ibox-content">
+                                    <form method="post" class="js-ajax-form margin-top-20"
+                                          action="{:url('theme/fileArrayDataEditPost',['tab'=>$tab,'var'=>$var,'file_id'=>$file_id,'widget'=>$widget])}">
+                                        {:_parse_vars($array_item,'item',2)}
+                                        <div class="form-group" style="display: none;">
+                                            <input type="hidden" name="item_index" value="{$item_index}">
+                                            <button type="submit" class="btn btn-primary js-ajax-submit" id="submit-btn">保存</button>
+                                        </div>
+                                    </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <include file="theme/scripts"/>
+</body>
+</html>

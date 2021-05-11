@@ -1,0 +1,77 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分类列表</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">分类管理</a>
+                        <a href="{:url('AdminCategory/add')}" class="btn btn-primary btn-xs">添加分类</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="js-ajax-form" action="{:url('AdminCategory/listOrder')}" method="post">
+                        <div class="table-actions">
+                            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+                        </div>
+                        <table class="table table-hover table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th width="50">
+                                排序
+                            </th>
+                            <th width="50">
+                                ID
+                            </th>
+                            <th>
+                                分类名称
+                            </th>
+                            <th>
+                                描述
+                            </th>
+                            <th width="180">
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                                {$category_tree}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th width="50">
+                                排序
+                            </th>
+                            <th width="50">
+                                ID
+                            </th>
+                            <th>
+                                分类名称
+                            </th>
+                            <th>
+                                描述
+                            </th>
+                            <th width="180">
+                                操作
+                            </th>
+                        </tr>
+                        </tfoot>
+                        </table>
+                        <div class="table-actions">
+                            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+                        </div>
+                        <div class="pagination">
+                            {$page|default=''}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

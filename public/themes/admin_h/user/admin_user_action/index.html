@@ -1,0 +1,66 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户操作管理</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">用户操作管理</a>
+                        <a href="{:url('AdminUserAction/sync')}" class="btn btn-primary btn-xs">同步用户操作</a>
+                    </div>
+                </div>
+                 <php>
+                    $status = [
+                        '隐藏',
+                        '开启'
+                    ];
+                </php>
+                <div class="ibox-content">
+                    <form method="post" class="js-ajax-form margin-top-20">
+                        <php>$cycle_types=['0'=>'不限','1'=>'天','2'=>'小时','3'=>'永久']</php>
+                        <table class="table table-hover table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th>操作</th>
+                            <th>积分更改</th>
+                            <th>金币更改</th>
+                            <th>奖励周期</th>
+                            <th>{:lang('ACTIONS')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="actions" item="vo">
+                        <tr>
+                            <td>{$vo.name} {$vo.action}</td>
+                            <td>{$vo.score}</td>
+                            <td>{$vo.coin}</td>
+                            <th>
+                                <eq name="vo.cycle_type" value="0">
+                                    不限
+                                    <else/>
+                                    {$vo.reward_number}次/{$vo.cycle_time}{$cycle_types[$vo['cycle_type']]}
+                                </eq>
+
+                            </th>
+                            <td>
+                                <a href="{:url('AdminUserAction/edit')}?id={$vo.id}">编辑</a>
+                            </td>
+                        </tr>
+                        </foreach>
+                        </tbody>
+                        </table>
+                        <div class="pagination">
+                            {$page|default=''}
+                        </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

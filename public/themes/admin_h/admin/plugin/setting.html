@@ -1,0 +1,41 @@
+<include file="plugin/functions"/>
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>设置</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('plugin/index')}" class="btn btn-primary btn-xs">{:lang('ADMIN_PLUGIN_INDEX')}</a>
+                        <a href="#" class="btn btn-primary btn-xs active">{:lang('ADMIN_PLUGIN_SETTING')}</a>
+                    </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('plugin/settingPost')}">
+                            <empty name="custom_config">
+                                {:_parse_plugin_config($data['config'])}
+                                <else/>
+                                <present name="custom_config">
+                                    {$custom_config}
+                                </present>
+                            </empty>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="hidden" name="id" value="{$id}" readonly>
+                                    <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="0">保存</button>
+                                    <a class="btn btn-default" href="javascript:history.back(-1);">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<include file="public@header"/>
+
+
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+     
+<link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+
+.modal { 
+ width: 100%; 
+ position: fixed; 
+ margin: 0px auto; 
+ top: 0px; left: 0px; 
+ bottom: 0px; 
+ right: 0px; 
+ z-index: 1111050; 
+ } 
+ .modal_wrapper { 
+ display: table; 
+ overflow: auto; 
+ overflow-y: scroll; 
+ height: 100%; 
+ -webkit-overflow-scrolling: touch; 
+ outline: 0; 
+ margin: 0px auto; 
+ } 
+
+</style>
+  <script>
+
+        function openModak(){
+            $("[name='testname']").val("xxxxxxxxxxxxxxx");//向模态框中赋值
+            layui.use(['layer'],function () {
+                var layer = layui.layer,$=layui.$;
+                layer.open({
+                    type:1,//类型
+                    area:['400px','300px'],//定义宽和高
+                    title:'查看详细信息',//题目
+                    shadeClose:false,//点击遮罩层关闭
+                    content: $('#motaikunag')//打开的内容
+                });
+            })
+        }
+    </script>
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>代币列表</h5>
+                        <div class="ibox-tools">
+                            <a href="#" class="btn btn-primary btn-xs active">代币列表</a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="well form-inline margin-top-20" method="post" action="{:url('Wallet/token')}">
+                          币种类型：
+                            <select class="form-control" name="coin_symbol" value="" style="width: 100px;">
+                                <option value="" <php>echo ''==$request['coin_symbol']?"selected":"";</php>>全部</option>                           
+                                <foreach name="tokens" item="vo">
+                                    <option value="{$vo.coin_symbol}" <php>echo $vo['coin_symbol']==$request['coin_symbol']?"selected":"";</php> >{$vo.coin_symbol} </option>
+
+                                </foreach>
+                            </select>                                                                  
+                          钱包ID：
+                             <input class="form-control" type="text" name="wallet_id" style="width: 200px;" value="{:input('request.wallet_id')}"
+                                    placeholder="请输入钱包ID">                             
+                            业务系统用户ID：
+                             <input class="form-control" type="text" name="uuid" style="width: 200px;" value="{:input('request.uuid')}"
+                                    placeholder="请输入业务系统用户ID">  
+                            钱包地址：
+                            <input class="form-control" type="text" name="address" style="width: 200px;" value="{:input('request.address')}"
+                                    placeholder="请输入钱包地址">
+                            <input type="submit" class="btn btn-primary" value="搜索"/>
+                            <a class="btn btn-danger" href="{:url('Wallet/token')}">清空</a>
+                            当前检索结果 总余额: <span style="color:red">{$total_balance}</span>
+                        </form>
+
+                        <form class="js-ajax-form" action="{:url('Wallet/collect')}" method="post">
+                            <div class="table-actions">
+                                <button class="btn btn-primary btn-small js-ajax-submit" type="submit">汇总</button>
+                            </div>
+
+                        <table class="table table-hover" id="menus-table">
+                            <thead>
+                                <tr>
+                                    <th width="60">序号</th>
+                                    <th width="60">ID</th>
+                                    <th width="120">业务用户ID</th>
+                                    <th>币种</th>
+                                    <th>钱包地址</th>
+                                    <th>链上余额</th>
+                                    <th>ETH余额(手续费)</th>
+                                    <th>当前转出状态</th>
+                                    <th>是否为汇总钱包</th>
+                                    <th>是否为转出钱包</th>
+                                    <th>创建时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <eq name="datas" value="">
+                                        <tr> 
+                                            <td colspan="5" style="text-align: center">暂无数据</td>
+                                        </tr>
+                                <else />
+                                    <foreach name="datas" item="vo">
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" name="ids[{$vo.id}]" />
+                                            </td>
+                                            <td>{$vo.id} </td>
+                                            <td>{$vo.uuid} </td>
+                                            <td>{$vo.coin_symbol}</td>
+                                            <td>{$vo.address}</td>
+                                            <td>{$vo.chain_balance}</td>
+                                            <td>{$vo.chain_balance_fee}</td>
+
+                                            <td>
+                                                <if condition="$vo['turnout_status'] eq 1">                                                
+                                                    <a class="js-ajax-dialog-btn" href="{:url('wallet/disable_turnout',array('id'=>$vo.id))}">
+                                                        {$turnout_status[$vo.turnout_status]}
+                                                    </a>
+                                                <else/>
+                                                    <a class="js-ajax-dialog-btn" href="{:url('wallet/enable_turnout',array('id'=>$vo.id))}">
+                                                        {$turnout_status[$vo.turnout_status]}
+                                                    </a>                                                
+                                                </if>                                                    
+                                            </td>
+                                            <td>
+                                                <if condition="$vo['depot_status'] eq 1">                                                
+                                                    <a class="js-ajax-dialog-btn" href="{:url('wallet/disable_depot',array('id'=>$vo.id))}">
+                                                        {$depot_status[$vo.depot_status]}
+                                                    </a>
+                                                <else/>
+                                                    <a class="js-ajax-dialog-btn" href="{:url('wallet/enable_depot',array('id'=>$vo.id))}">
+                                                        {$depot_status[$vo.depot_status]}
+                                                    </a>                                                
+                                                </if>                                                                         
+                                            </td>
+
+                                            <td>
+                                                <if condition="$vo['pay_status'] eq 1">                                                
+                                                    <a class="js-ajax-dialog-btn" href="{:url('wallet/disable_pay',array('id'=>$vo.id))}">
+                                                        {$pay_status[$vo.pay_status]}
+                                                    </a>
+                                                <else/>
+                                                    <a class="js-ajax-dialog-btn" href="{:url('wallet/enable_pay',array('id'=>$vo.id))}">
+                                                        {$pay_status[$vo.pay_status]}
+                                                    </a>                                                
+                                                </if>                                                                         
+                                            </td>                                                                                        
+                                            <td>{$vo.add_time|date="Y-m-d H:i",###}</td>
+                                            <td>
+                                                <a class="js-ajax-dialog-btn" href="{:url('Wallet/update',array('id'=>$vo.id))}">更新余额</a>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                            </eq>
+                            </tbody>
+                        </table>
+                        <div class="pagination">
+                            <div>
+                                当前共有数据 <span style="color:blue;font-weight:bold">{$num}</span> 条
+                            </div>
+                            {$page|default=''}
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>列表</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('push/index')}" class="btn btn-primary btn-xs active">列表</a>
+                        <a href="{:url('push/add')}" class="btn btn-primary btn-xs">添加推送</a>
+                    </div>
+                </div>
+
+
+                <div class="ibox-content">
+                    <div class="tips"></div><!-- 提示框 -->
+                    <form class="js-ajax-form" method="post">
+                        <table class="table table-hover" id="menus-table">
+                            <thead>
+                            <tr>
+                                <th width="80">类型</th>
+                                <th width="80">标题</th>
+                                <th>内容</th>
+                                <th width="80">URL</th>
+                                <th width="80">状态</th>
+                                <th width="120">处理时间</th>
+                                <th width="80">推送对象</th>
+                                <th width="150">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <empty name="datas">
+                                <tr>
+                                    <td colspan="3" style="text-align: center">暂无数据</td>
+                                </tr>
+                                <else/>
+                                <foreach name="datas" item="vo">
+                                    <tr>
+                                        <td>{$type[$vo['type']]}</td>
+                                        <td>{$vo.title}</td>
+                                        <td>
+                                            <a href="javascript:artdialogAlertV2('{$vo.content}','内容','face-smile')">{$vo.content|msubstr=0,15}</a>
+                                        </td>
+                                        <td>{$vo.url}</td>
+                                        <td>{$status[$vo['status']]}</td>
+                                        <td>
+                                            <notempty name="vo.deal_time">
+                                                {$vo.deal_time|date="Y-m-d H:i",###}
+                                            </notempty>
+                                        </td>
+                                        <td>
+                                            <eq name="vo.user_id" value="0">
+                                                全体成员
+                                                <else/>
+                                                {$vo.user_id}
+                                            </eq>
+                                        </td>
+                                        <td>
+                                            <a href="{:url('push/push',['id'=> $vo.id  ]  )}" class="js-ajax-dialog-btn"
+                                               data-msg="确定推送吗？">推送</a> |
+                                            <a href="{:url('push/del',['id'=> $vo.id  ]  )}"
+                                               class="js-ajax-delete">删除</a>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                            </empty>
+                            </tbody>
+                        </table>
+                        <div class="pagination">{$page}</div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

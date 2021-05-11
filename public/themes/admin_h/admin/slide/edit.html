@@ -1,0 +1,49 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加幻灯片组</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('slide/index')}" class="btn btn-primary btn-xs">所有幻灯片</a>
+                        <a href="{:url('slide/add')}" class="btn btn-primary btn-xs">添加幻灯片</a>
+                        <a href="#" class="btn btn-primary btn-xs active">编辑幻灯片</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                   <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('slide/editPost')}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>名称</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-name" name="name" value="{$result.name}"> 
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">{:lang('DESCRIPTION')}</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" id="input-remark" name="remark">{$result.remark}</textarea>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-6">
+                                <input type="hidden" name="id" value="{$result.id}">
+                                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                                <a class="btn btn-default" href="{:url('slide/index')}">{:lang('BACK')}</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

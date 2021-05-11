@@ -1,0 +1,142 @@
+<include file="public@header"/>
+<style>
+	.label{
+		cursor: pointer;
+	}
+    .tips{
+        display: none;
+        position: fixed;
+        top: 40%;
+        left: 40%;
+        min-width: 200px;
+        max-width: 700px;
+        transform: translate(-50%,-50%);
+        z-index: 99999;
+        text-align: center;
+        padding: 15px;
+        border-radius: 5px;
+        color:black;
+        background-color: #f2dede;
+        border-color: #d6e9c6;
+    }
+    .edits{
+        cursor:pointer;
+        color:coral;
+    }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>币种列表（EOS、XRP无需归集）</h5>
+                        <div class="ibox-tools">
+                            <a href="#" class="btn btn-primary btn-xs active">币种列表</a>
+                            <a href="{:url('Coins/add')}" class="btn btn-primary btn-xs">添加币种</a>
+                        </div>
+                    </div>
+
+
+<div class="ibox-content">
+        <div class="tips"></div><!-- 提示框 -->
+
+<table class="table table-hover" id="menus-table">
+    <thead>
+        <tr>
+            <th width="40">ID</th>
+            <th>币种名称</th>
+            <th>币种符号</th>
+            <th>代币父币种</th>
+            <th>转账手续费</th>
+            <th>自动归集</th>
+            <th>上账最小充值金额</th>
+            <th>归集最小金额</th>
+            <th>归集最大金额</th>
+            <th>当前同步位置</th>
+            <th>区块浏览器</th>
+            <th>RPC连接测试</th>
+            <th width="150">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <eq name="datas" value="">
+                <tr> 
+                    <td colspan="5" style="text-align: center">暂无数据</td>
+                </tr>
+        <else />
+            <foreach name="datas" item="vo">
+                <tr>
+
+                    <td>{$vo.id}</td>
+                    <td>{$vo.coin_name}</td>
+                    <td>{$vo.coin_symbol}    </td>
+                    <td>{$vo.parent_coin}</td>
+                    <td>{$vo.min_fee}</td>
+                    <td>{$collect_status[$vo.collect_status]}</td>
+                    <td>{$vo.recharge_min}</td>
+                    <td>{$vo.collect_min}</td>
+                    <td>{$vo.collect_max}</td>
+                    <td>{$vo.rpc_last_pos}</td>
+                    <td>
+                        <if condition="$vo['coin_symbol'] eq 'BTC'">
+                            <a href="https://btc.com/" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'ETH'" >
+                            <a href="https://etherscan.io/" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'USDT'" >
+                            <a href="https://www.omniexplorer.info/" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'LTC'" >
+                            <a href="https://ltc.ihashrate.com/" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'BCH'" >
+                            <a href="https://bch.btc.com/" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'ETC'" >
+                            <a href="http://gastracker.io/" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'XRP'" >
+                            <a href="javascript:alert('暂不支持XRP');" target="_blank">查看</a>
+                        <elseif condition="$vo['coin_symbol'] eq 'EOS'" >
+                            <a href="https://eospark.com/" target="_blank">查看</a>                                               
+                        <elseif condition="$vo['coin_symbol'] eq 'VDS'" >
+                            <a href="http://my-vds.com/#/" target="_blank">查看</a>                                               
+                        <else>                            
+                             <a href="https://etherscan.io/token/{$vo.contract}" target="_blank">查看</a>                           
+                        </if>
+                    </td>
+                    <td>
+                        <a class="js-ajax-dialog-btn"  href="{:url('Coins/rpc_test',['id'=> $vo.id  ]  )}">测试连接</a> 
+                    </td>
+                    <td>
+                        <a href="{:url('Coins/edits',['id'=> $vo.id  ]  )}">修改</a> 
+                    </td>
+                </tr>
+            </foreach>
+    </eq>
+    </tbody>
+</table>
+</div>
+<div class="pagination"></div>
+</form>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    function checktag(id,tag,type){
+        $.ajax({
+            url:"{:url('Coins/uptag')}",
+            type:"post",
+            data:{id:id,tag:tag,type:type},
+            success:function(data){
+               
+                    $('.tips').text(data).fadeIn().delay(1500).fadeOut();	
+                    document.location.reload();
+                
+               
+            }
+        })
+    }
+</script>
+</body>
+</html>

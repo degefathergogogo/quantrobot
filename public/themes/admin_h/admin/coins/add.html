@@ -1,0 +1,165 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('coins/index')}" class="btn btn-primary btn-xs active">币种列表</a>
+                        <a href="{:url('coins/add')}" class="btn btn-primary btn-xs">添加币种</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal js-ajax-form" action="{:url('coins/add')}" method="post">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>币种名称</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-coin_name" name="coin_name" required="required">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>币种符号</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-coin_symbol" name="coin_symbol" required="required">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>币种类型(coin/token)</label>
+                            <div class="col-sm-6">
+                                <input name="coin_type" class="coin_type" value="coin" type="radio"  >coin &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <input name="coin_type" class="coin_type" value="token" type="radio" checked>token
+                                <!-- <input type="text" class="form-control" id="input-coin_type" name="coin_type"> -->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required"></span>转账手续费</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-min_fee" name="min_fee" value="">
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed">
+                        </div>
+        
+    
+                   <div class="form-group">
+                        <label class="col-sm-2 control-label"><span class="form-required"></span>币种小数位数（以太系专用,默认:18）</label>
+                        <div class="col-sm-6">
+                            <input type="number" class="form-control" id="input-coin_decimal" min=1 step=1 value=18 name="coin_decimal" >
+                        </div>
+                    </div>
+
+
+
+                    <div class="hr-line-dashed">
+                    </div>
+
+   
+                     <div id = "show_token">
+
+                            <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="form-required"></span>代币父币种</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="input-parent_coin" name="parent_coin" value="ETH">
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+        
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="form-required"></span>合约地址</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control" id="input-contract" name="contract" >
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+
+                     </div>
+
+
+
+
+                     <div id = "show_coin">
+                            
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required"></span>Rpc 服务器IP</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-rpc_ip" name="rpc_ip">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required"></span>Rpc 端口</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-rpc_port" name="rpc_port">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required"></span>Rpc 用户名</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-rpc_user" name="rpc_user">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required"></span>Rpc 密码</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-rpc_pass" name="rpc_pass">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+
+                    </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-6">
+                                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="__STATIC__/js/admin.js"></script>
+    <script>
+
+        $('#show_coin').hide();
+        $('#show_token').show();
+        $('input[name="coin_type"]').change(function() {
+            var val = $(this).val();
+            if( val == "coin"){
+                $('#show_token').hide();
+                $('#show_coin').show();
+            }else{
+                $('#show_token').show();
+                $('#show_coin').hide();
+            }
+        })
+        
+    </script>
+    </body>
+    </html>

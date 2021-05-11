@@ -1,0 +1,52 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>菜单列表</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">所有钩子</a>
+                        <a href="{:url('Hook/sync')}" class="btn btn-primary btn-xs">同步钩子</a>
+                    </div>
+                    </div>
+                    <form action="" method="post" class="margin-top-20">
+                        <php>
+                            $types = ["1"=>'系统钩子','2'=>'应用钩子','3'=>'模板钩子','4'=>'后台模板钩子'];
+                        </php>
+                    <div class="ibox-content">
+                        <table class="table table-hover" id="menus-table">
+                            <thead>
+                                <tr>
+                                    <th width="40">ID</th>
+                                    <th>名称</th>
+                                    <th>类型</th>
+                                    <th>描述</th>
+                                    <th width="150">{:lang('ACTIONS')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <foreach name="hooks" item="vo">
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.name}:{$vo.hook}</td>
+                                        <td>{$types[$vo.type]}</td>
+                                        <td>{$vo.description}</td>
+                                        <td>
+                                            <a href="javascript:parent.openIframeLayer('{:url('Hook/plugins',['hook'=>$vo['hook']])}','钩子{$vo.name}插件管理',{});">管理插件</a>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                            </tbody>
+                        </table>
+                    </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>所有数据</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">所有数据</a>
+                        <a href="{:url('theme/fileArrayDataEdit',['tab'=>$tab,'var'=>$var,'file_id'=>$file_id,'widget'=>$widget])}" class="btn btn-primary btn-xs">添加数据</a>
+                    </div>
+                    </div>
+                        <div class="ibox-content">
+                                <form method="post" class="js-ajax-form margin-top-20">
+                                    <table class="table table-hover table-bordered table-list">
+                                        <thead>
+                                        <tr>
+                                            <foreach name="array_item" item="vo">
+                                                <th>{$vo.title}</th>
+                                            </foreach>
+                                            <th width="120">{:lang('ACTIONS')}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <foreach name="array_items" item="item" key="itemKey">
+                                            <tr>
+                                                <foreach name="array_item" item="vo">
+                                                    <td>{$item[$key]|default=''}</td>
+                                                </foreach>
+                                                <td>
+                                                    <a href="{:url('theme/fileArrayDataEdit',['tab'=>$tab,'var'=>$var,'file_id'=>$file_id,'widget'=>$widget,'item_index'=>$itemKey])}">编辑</a>
+                                                    <a href="{:url('theme/fileArrayDataDelete',['tab'=>$tab,'var'=>$var,'file_id'=>$file_id,'widget'=>$widget,'item_index'=>$itemKey])}"
+                                                       class="js-ajax-delete">删除</a>
+                                                </td>
+                                            </tr>
+                                        </foreach>
+                                        </tbody>
+                                    </table>
+                                </form>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    function confirm() {
+        return true;
+    }
+</script>
+</body>
+</html>

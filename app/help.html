@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>etbank</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+    
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">
+                    ETBank
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <h2>提交请求</h2>
+        <form id="form" onsubmit="return false">
+            <div class="form-group">
+                <label for="exampleInputEmail1">电邮地址</label>
+                <input type="email" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">手机号码</label>
+                <input type="number" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">标题</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">描述</label>
+                <input type="text" class="form-control">
+            </div>
+
+            <button id="submit" type="button" class="btn btn-default">提交</button>
+        </form>
+    </div>
+</body>
+<script>
+    $(function () {
+        $('#submit').click(function () {
+            $.ajax({
+                type: "POST",
+                url: "s.php",
+                data: $('#form').serialize(),
+                success: function (msg) {
+                    alert("Data Saved: " + msg);
+                }
+            });
+            return false
+        });
+
+    })
+</script>
+
+</html>

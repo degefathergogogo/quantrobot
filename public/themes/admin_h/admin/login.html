@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{:lang('ADMIN_CENTER')} - 登录</title>
+    <link rel="shortcut icon" href="favicon.ico"> <link href="__TMPL__/public/assets/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__TMPL__/public/assets/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+
+    <link href="__TMPL__/public/assets/css/animate.css" rel="stylesheet">
+    <link href="__TMPL__/public/assets/css/style.css?v=4.1.0" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if (window.parent !== window.self) {
+            document.write              = '';
+            window.parent.location.href = window.self.location.href;
+            setTimeout(function () {
+                document.body.innerHTML = '';
+            }, 0);
+        }
+    </script>
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+
+                <h1 class="logo-name">Hi</h1>
+
+            </div>
+            <h3>欢迎登录</h3>
+
+            <form class="m-t js-ajax-form"  action="{:url('public/doLogin')}" method="post">
+
+                <div class="form-group">
+                    <input type="text" id="input_username" class="form-control"  name="username"
+                               placeholder="{:lang('USERNAME_OR_EMAIL')}" title="{:lang('USERNAME_OR_EMAIL')}"
+                               value="{:cookie('admin_username')}" data-rule-required="true" data-msg-required="">
+                </div>
+
+                <div class="form-group">
+                    <input type="password" id="input_password" class="form-control" placeholder="{:lang('PASSWORD')}" title="{:lang('PASSWORD')}" data-rule-required="true" data-msg-required="" name="password">
+                </div>
+
+                <div class="form-group">
+                    <div style="position: relative;">
+                            <input type="text" name="captcha" placeholder="验证码" class="form-control captcha">
+                            <captcha height="32" width="150" font-size="18"
+                                     style="cursor: pointer;position:absolute;right:1px;top:1px;"/>
+                        </div>
+                </div>
+
+                <input type="hidden" name="redirect" value="">
+
+                <button type="submit" class="btn btn-primary block full-width m-b js-ajax-submit">登 录</button>
+
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //全局变量
+        var GV = {
+            ROOT: "__ROOT__/",
+            WEB_ROOT: "__WEB_ROOT__/",
+            JS_ROOT: "static/js/",
+            APP: ''/*当前应用名*/
+        };
+    </script>
+    <!-- 全局js -->
+    <script src="__TMPL__/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="__STATIC__/js/wind.js"></script>
+    <script src="__STATIC__/js/admin.js"></script>
+    <script>
+    (function () {
+        document.getElementById('input_username').focus();
+    })();
+    </script>
+
+</body>
+</html>

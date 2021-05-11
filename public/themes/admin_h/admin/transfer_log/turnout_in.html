@@ -1,0 +1,152 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>内部转账记录</h5>
+                        <div class="ibox-tools">
+                            <a href="#" class="btn btn-primary btn-xs active">内部转账记录</a>
+                        </div>
+                    </div>
+<div class="ibox-content">
+    <form class="well form-inline margin-top-20" method="post" action="{:url('TransferLog/turnout_in')}">
+
+        交易ID：
+        <input class="form-control" type="text" name="id" style="width: 200px;" value="{:input('request.id')}"
+                placeholder="请输入交易ID">
+        流水号：
+        <input class="form-control" type="text" name="transaction_no" style="width: 200px;" value="{:input('request.transaction_no')}"
+                placeholder="请输入流水号">   
+        钱包ID：
+        <input class="form-control" type="text" name="wallet_id" style="width: 200px;" value="{:input('request.wallet_id')}"
+                placeholder="请输入钱包ID">   
+        <br><br>from钱包地址：
+        <input class="form-control" type="text" name="from_address" style="width: 200px;" value="{:input('request.from_address')}"
+                placeholder="请输入from钱包地址">   
+        to钱包地址：        
+        <input class="form-control" type="text" name="to_address" style="width: 200px;" value="{:input('request.to_address')}"
+                placeholder="请输入to钱包地址"> 
+            处理状态：
+                <select class="form-control"  name="transfer_status" >
+                        <option value="" >全部</option>
+                        <option value="-1" 
+                       <eq name=":input('request.transfer_status')" value="-1"> selected
+                       </eq> 
+                       >{$transfer_status_arr[-1]}</option>                        
+                        <option value="0" 
+                       <eq name=":input('request.transfer_status')" value="0"> selected
+                       </eq> 
+                       >{$transfer_status_arr[0]}</option>
+                       <option value="1" 
+                           <eq name=":input('request.transfer_status')" value="1"> selected
+                           </eq> 
+                           >{$transfer_status_arr[1]}</option> 
+                      <option value="2" 
+                           <eq name=":input('request.transfer_status')" value="2"> selected
+                           </eq>  
+                           >{$transfer_status_arr[2]}</option>                                                        
+                </select>
+            审批状态：
+                <select class="form-control"  name="audit_status" >
+                        <option value="" >全部</option>
+                        <option value="-1" 
+                       <eq name=":input('request.audit_status')" value="-1"> selected
+                       </eq> 
+                       >{$audit_status_arr[-1]}</option>                           
+                        <option value="0" 
+                       <eq name=":input('request.audit_status')" value="0"> selected
+                       </eq> 
+                       >{$audit_status_arr[0]}</option>                        
+                        <option value="1" 
+                       <eq name=":input('request.audit_status')" value="1"> selected
+                       </eq> 
+                       >{$audit_status_arr[1]}</option>
+                </select>                
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('TransferLog/turnout_in')}">清空</a>
+    </form>
+
+        <table class="table table-hover" id="menus-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>流水号</th>
+                    <th>钱包ID</th>
+                    <th>接收钱包地址</th>
+                    <th>from address/to address</th>
+                    <th>币种名称</th>
+                    <th>交易数量</th>
+                    <th>交易时间</th>
+                    <!--<th width="80">备注</th>--> 
+                    <th>状态</th>
+                    <th>审批状态</th>
+                    <th>通知状态</th>
+                    <!--<th>链上交易</th>-->               
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <eq name="datas" value="">
+                        <tr> 
+                            <td colspan="5" style="text-align: center">暂无数据</td>
+                        </tr>
+                <else />
+                    <foreach name="datas" item="vo">
+                        <tr>
+                            <td> {$vo.id} </td>
+                            <td> {$vo.transaction_no} </td>
+                            <td> {$vo.wallet_id} </td>
+                            <td> {$vo.to_wallet_id} </td>
+                            <td>{$vo.from_address}<br>{$vo.to_address}</td>                      
+                            <td>{$vo.coin_symbol}</td>
+                            <td>{$vo.amount|floatval}</td>
+                            <td>{$vo.log_time|date="Y-m-d H:i",###}</td>
+                             <!--<td>{$vo.memo}</td>-->
+                            <td>{$transfer_status_arr[$vo.transfer_status]}</td>
+                            <td>{$audit_status_arr[$vo.audit_status]}</td>
+                            <td>{$notify_status_arr[$vo.notify_status]}</td> 
+                           <!-- <td> <a  href="{:url('ChainLog/index',array('transfer_id'=>$vo.id))}">查看</a></td> -->                                     
+                            <td>                                
+                               <if condition="$vo['audit_status'] eq 0">
+                                    <a class="js-ajax-dialog-btn" href="{:url('TransferLog/refuse',array('id'=>$vo.id))}">拒绝</a>
+                                    <a class="js-ajax-dialog-btn" href="{:url('TransferLog/approve',array('id'=>$vo.id))}">通过</a>
+                               </if>
+                               <if condition="($vo['transfer_status'] eq 1) &&($vo['notify_status'] neq 1)">
+                                    <a class="js-ajax-dialog-btn" href="{:url('TransferLog/notify',array('id'=>$vo.id))}">补发</a>
+                               </if> 
+
+                               <if condition="$vo['transfer_status'] eq -1">
+                                    <a class="js-ajax-dialog-btn" href="{:url('TransferLog/reset',array('id'=>$vo.id))}">重新执行</a>
+                               </if>                                                                  
+                            </td>
+
+                        </tr>
+                    </foreach>
+            </eq>
+            </tbody>
+        </table>
+
+
+
+
+    
+    <div class="pagination">
+            <div>
+                当前共有数据 <span style="color:blue;font-weight:bold">{$num}</span> 条
+            </div>
+            {$page|default=''}
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

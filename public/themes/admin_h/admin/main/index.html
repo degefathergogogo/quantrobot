@@ -1,0 +1,74 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>首页</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="alert alert-success alert-dismissable">
+                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                            <strong>欢迎您！现在的时间是</strong> <span id="mytime"></span>
+                        </div>
+                        <empty name="has_smtp_setting">
+	                        <div class="alert alert-danger alert-dismissable">
+	                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+	                            <strong>提示!</strong> 邮箱配置未完成,无法进行邮件发送!
+	                        </div>
+	                    </empty>
+	                    <if condition="!extension_loaded('fileinfo')">
+	                        <div class="alert alert-danger alert-dismissable">
+	                            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+	                           <strong>提示!</strong> php_fileinfo扩展没有开启，无法正常上传文件！
+	                        </div>
+	                    </if>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>技术支持</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <p>Email:</p>
+                        <p>QQ:</p>
+                        <p>Tel:</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+
+    function showTime(){
+            nowtime=new Date();
+
+            year=nowtime.getFullYear();
+
+            month=nowtime.getMonth()+1;
+
+            date=nowtime.getDate();
+
+            document.getElementById("mytime").innerText=year+"年"+month+"月"+date+" "+nowtime.toLocaleTimeString();
+    }
+
+    setInterval("showTime()",1000);
+
+
+</script>
+
+</body>
+</html>

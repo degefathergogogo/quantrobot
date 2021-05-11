@@ -1,0 +1,54 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>邮箱配置</h5>
+	                    <div class="ibox-tools">
+	                        <a href="{:url('mailer/index')}" class="btn btn-primary btn-xs active">{:lang('ADMIN_MAILER_INDEX')}</a>
+	                        <a href="#" class="btn btn-primary btn-xs">数字验证码邮件模板</a>
+	                    </div>
+                    </div>
+                    <form class="form-horizontal js-ajax-form" action="{:url('admin/mailer/templatePost')}" method="post">
+	                    <div class="ibox-content">
+                            <div class="form-group">
+                            <label for="input-title" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('EMAIL_SUBJECT')}</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="subject" id="input-title" value="{$subject|default=''}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="input-title" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('EMAIL_TEMPLATE')}</label>
+                            <div class="col-md-6 col-sm-12">
+                                <script type="text/plain" id="content" name="template">{$template|default=""|htmlspecialchars_decode}</script>
+                                <literal><span style="color: #ffb752;">请用{$code}代替数字验证码<!--，{$username}代替用户名--></span></literal>
+                            </div>
+                        </div>
+                            <div class="form-group">
+					            <div class="col-sm-offset-2 col-sm-10">
+                                    <input type="hidden" name="template_key" value="verification_code">
+					                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					            </div>
+					        </div>
+	                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript">
+    var editorcontent = new baidu.editor.ui.Editor();
+    editorcontent.render('content');
+</script>
+</body>
+</html>

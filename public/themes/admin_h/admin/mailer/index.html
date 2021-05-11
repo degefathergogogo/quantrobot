@@ -1,0 +1,92 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>邮箱配置</h5>
+	                    <div class="ibox-tools">
+	                        <a href="#" class="btn btn-primary btn-xs active">{:lang('ADMIN_MAILER_INDEX')}</a>
+	                        <a href="{:url('mailer/template')}?template_key=verification_code" class="btn btn-primary btn-xs">数字验证码邮件模板</a>
+	                    </div>
+                    </div>
+                    <form class="form-horizontal js-ajax-form" action="{:url('Admin/mailer/indexPost')}" method="post">
+	                    <div class="ibox-content">
+	                    	<div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('SENDER_NAME')}</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="input-from_name" name="from_name"
+                       							value="{$from_name|default=''}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('SENDER_EMAIL_ADDRESS')}</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="input-from" name="from" value="{$from|default=''}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('SENDER_SMTP_SERVER')}</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="input-host" name="host" value="{$host|default=''}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>连接方式</label>
+                                <div class="col-sm-6">
+                                    <select name="smtp_secure" id="js-smtpsecure" class="form-control">
+					                    <option value="">默认</option>
+					                    <option value="ssl">ssl</option>
+					                    <option value="tls">tls</option>
+					                </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>SMTP服务器端口</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="input-port" name="port" value="{$port|default=''}"
+                       								placeholder="默认为25">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('SMTP_MAIL_ADDRESS')}</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="input-login_name" name="username"
+                       value="{$username|default=''}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('SMTP_MAIL_PASSWORD')}</label>
+
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" id="input-password" name="password"
+                       value="{$password|default=''}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+					            <div class="col-sm-offset-2 col-sm-6">
+					                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+					            </div>
+					        </div>
+	                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>分类</h5>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="js-ajax-form">
+                        <div>
+                            <label>分类：</label>
+                            <select name="term_id">
+                                {$terms_tree}
+                            </select>
+                        </div>
+                        <button class="btn btn-primary js-ajax-submit" type="submit">复制</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加标签</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('AdminTag/index')}" class="btn btn-primary btn-xs">标签管理</a>
+                        <a href="#" class="btn btn-primary btn-xs active">添加标签</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('AdminTag/addPost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="form-required">*</span>标签名称</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" name="name" value="" required placeholder="请输入标题">
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">状态</label>
+                                    <div class="col-md-8">
+                                        <select name="status" class="form-control">
+                                            <foreach name="arrStatus" key="k" item="vo">
+                                            <option value="{$k}">{$vo}</option>
+                                            </foreach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-md-8">
+                                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang("SAVE")}</button>
+                                        <a class="btn btn-default" href="{:url('AdminTag/index')}">{:lang('BACK')}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__STATIC__/js/admin.js"></script>
+    </body>
+    </html>

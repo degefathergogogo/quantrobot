@@ -1,0 +1,59 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>编辑URL</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('route/index')}" class="btn btn-primary btn-xs">URL美化</a>
+                        <a href="{:url('route/add')}" class="btn btn-primary btn-xs">添加URL</a>
+                        <a href="#" class="btn btn-primary btn-xs active">编辑URL</a>
+                    </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('route/editPost')}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>原始网址</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-full_url" name="full_url" value="{$full_url}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>显示网址</label>
+                                <div class="col-md-8">
+                                   <input type="text" class="form-control" id="input-url" name="url" value="{$url}">
+                                   <span class="help-block m-b-none"> url格式一般为list/:param1/:param2或 list-&lt;param1&gt;-&lt;param2&gt;</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否启用</label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="status" id="input-status">
+                                        <option value="1">启用</option>
+                                        <php>$status_selected=$status?"":"selected";</php>
+                                        <option value="0" {$status_selected}>禁用</option>
+                                    </select>
+                                </div>
+                            </div>                      
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{$id}">
+                                    <button class="btn btn-primary js-ajax-submit" type="submit">{:lang('SAVE')}</button>
+                                    <a class="btn btn-default" href="{:url('Route/index')}">返回</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

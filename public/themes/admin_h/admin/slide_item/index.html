@@ -1,0 +1,82 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>幻灯片页面管理</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">幻灯片页面列表</a>
+                        <a href="{:url('SlideItem/add',['slide_id'=>$slide_id])}" class="btn btn-primary btn-xs">添加幻灯片页面</a>
+                    </div>
+                </div>
+                 <php>
+                    $status = [
+                        '隐藏',
+                        '开启'
+                    ];
+                </php>
+                <div class="ibox-content">
+                    <form method="post" class="js-ajax-form margin-top-20" action="{:url('SlideItem/listOrder')}">
+                        <table class="table table-hover table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th width="50">{:lang('SORT')}</th>
+                <th width="50">ID</th>
+                <th>幻灯片标题</th>
+                <th>描述</th>
+                <th>链接</th>
+                <th>图片</th>
+                <th>状态</th>
+                <th width="160">{:lang('ACTIONS')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="result" item="vo">
+                        <tr>
+                            <td>
+                        <input name="list_orders[{$vo.id}]" class="input-order" type="text" value="{$vo.list_order}">
+                    </td>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.title}</td>
+                    <td>{$description = mb_substr($vo['description'], 0, 48,'utf-8')}</td>
+                    <td>{$vo.url}</td>
+                    <td>
+                        <if condition="!empty($vo['image'])">
+                            <a href="javascript:imagePreviewDialog('{:cmf_get_image_preview_url($vo.image)}');">
+                                <i class="fa fa-photo fa-fw"></i>
+                            </a>
+
+                        </if>
+                    </td>
+                    <td>{$status[$vo['status']]}</td>
+                    <td>
+                        <a href="{:url('SlideItem/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a href="{:url('SlideItem/delete',array('id'=>$vo['id']))}"
+                           class="js-ajax-delete">{:lang('DELETE')}</a>
+                        <if condition="empty($vo['status']) eq 1">
+                            <a href="{:url('SlideItem/cancelban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                               data-msg="确定显示此幻灯片吗？">{:lang('DISPLAY')}</a>
+                            <else/>
+                            <a href="{:url('SlideItem/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                               data-msg="确定隐藏此幻灯片吗？">{:lang('HIDE')}</a>
+                        </if>
+                    </td>
+                        </tr>
+                        </foreach>
+                        </tbody>
+                        </table>
+                        <div class="pagination">
+                            {$page|default=''}
+                        </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

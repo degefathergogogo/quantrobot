@@ -1,0 +1,118 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>链上转出记录</h5>
+                        <div class="ibox-tools">
+                            <a href="#" class="btn btn-primary btn-xs active">链上转出记录</a>
+                        </div>
+                    </div>
+<div class="ibox-content">
+    <form class="well form-inline margin-top-20" method="post" action="{:url('ChainLog/index')}">
+
+
+        币种：
+        <input class="form-control" type="text" name="coin_symbol" style="width: 200px;" value="{:input('request.coin_symbol')}"
+                placeholder="请输入币种名称">
+
+        开始时间：
+        <input class="form-control js-bootstrap-datetime" type="text" name="start_time" style="width: 200px;" value="{:input('request.start_time')}"
+                placeholder="请输入开始时间">
+
+        结束时间：
+        <input class="form-control js-bootstrap-datetime" type="text" name="end_time" style="width: 200px;" value="{:input('request.end_time')}"
+                placeholder="请输入结束时间">
+
+
+
+        转账交易ID：
+        <input class="form-control" type="text" name="transfer_id" style="width: 200px;" value="{:input('request.transfer_id')}"
+                placeholder="请输入transfer_id">
+
+        链上交易ID：
+        <input class="form-control" type="text" name="tx_id" style="width: 200px;" value="{:input('request.tx_id')}"
+                placeholder="请输入tx_id">
+
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('ChainLog/index')}">清空</a>
+
+        <br><br>当前检索结果 总手续费: <span style="color:red">{$total_fee}</span>
+
+    </form>
+
+        <table class="table table-hover" id="menus-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>转账交易ID</th>
+                    <th>链上交易ID</th>
+                    <th>浏览器</th>
+                    <th>coin_symbol</th>
+                    <th>from address/to address</th>
+                    <!--<th>memo</th>-->
+                    <th>数量/手续费</th>
+                    <th>时间</th>
+                    <th>交易状态</th>
+                </tr>
+            </thead>
+            <tbody>
+                <eq name="datas" value="">
+                        <tr> 
+                            <td colspan="5" style="text-align: center">暂无数据</td>
+                        </tr>
+                <else />
+                    <foreach name="datas" item="vo">
+                        <tr>
+                            <td>{$vo.id} </td>
+                            <td>{$vo.transfer_id} </td>
+                            <td>
+                                {$vo.tx_id}
+                            </td>
+                            <td>
+                                <if condition="$vo['coin_symbol'] eq 'BTC'">
+                                    <a href="https://btc.com/{$vo.tx_id}" target="_blank">浏览器</a>
+                                <elseif condition="$vo['coin_symbol'] eq 'ETH'" >
+                                    <a href="https://etherscan.io/tx/{$vo.tx_id}" target="_blank">浏览器</a>
+                                <elseif condition="$vo['coin_symbol'] eq 'USDT'" >
+                                    <a href="https://www.omniexplorer.info/tx/{$vo.tx_id}" target="_blank">浏览器</a>
+                                <else>
+                                     <a href="https://etherscan.io/tx/{$vo.tx_id}" target="_blank">浏览器</a>                           
+                                </if>    
+                            </td>
+                            <td>{$vo.coin_symbol}</td>
+                            <td>{$vo.from_address}<br>{$vo.to_address}</td>                           
+                            <!--<td>{$vo.memo}</td>-->
+                            <td><font color="green">{$vo.amount|floatval}</font><br>{$vo.fee|floatval}</td>
+                            <td>{$vo.log_time|date="Y-m-d H:i",###}</td>
+                            <td>{$transfer_status[$vo.status]}</td>
+                        </tr>
+                    </foreach>
+            </eq>
+            </tbody>
+        </table>
+
+
+
+
+    
+    <div class="pagination">
+            <div>
+                当前共有数据 <span style="color:blue;font-weight:bold">{$num}</span> 条
+            </div>
+            {$page|default=''}
+        
+    </div>
+</div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

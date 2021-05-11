@@ -1,0 +1,128 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#A" data-toggle="tab">系统配置</a></li>
+        </ul>
+    <form class="form-horizontal js-ajax-form margin-top-20" role="form" action="{:url('appconfig/indexPost')}"
+          method="post">
+        <fieldset>
+            <div class="ibox-content">
+            <div class="tabbable">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="A">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>外部转账审批开关</label>
+                            <div class="col-md-6 col-sm-10">
+
+                                <select class="form-control" name="sys_config[turnout_audit1]" value="" style="width: 140px;">
+                                    <option value="0" {$check.audit1_check_0}>关闭</option>
+                                    <option value="1" {$check.audit1_check_1}>开启</option>
+                                </select>                                                             
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label  class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>内部转账审批开关</label>
+                            <div class="col-md-6 col-sm-10">
+                                <select class="form-control" name="sys_config[turnout_audit2]" value="" style="width: 140px;">
+                                    <option value="0" {$check.audit2_check_0}>关闭</option>
+                                    <option value="1" {$check.audit2_check_1}>开启</option>
+                                </select>          
+                            </div>
+                        </div>
+       
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>交易所回调通知地址</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[notify_url]" 
+                                value="{$sys_config.notify_url|default=''}">
+                            </div>
+                        </div>
+                        <!--div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>量化回调通知地址</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[quant_notify_url]" 
+                                value="{$sys_config.quant_notify_url|default=''}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>通知区分标识</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[quant_user_id]" 
+                                value="{$sys_config.quant_user_id|default='1000000000'}" readonly>
+                            </div>
+                        </div-->
+                        <!--
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>自动汇总开关</label>
+                            <div class="col-md-6 col-sm-10">
+
+                                <select class="form-control" name="sys_config[huizong_auto]" value="" style="width: 140px;">
+                                    <option value="0" {$check.auto_check_0}>关闭</option>
+                                    <option value="1" {$check.auto_check_1}>开启</option>
+                                </select>                                                             
+                            </div>
+                        </div>-->
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>自动汇总时间间隔(单位:秒)</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[huizong_interval]" 
+                                value="{$sys_config.huizong_interval|default='3600'}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>钱包通讯MD5 Key()</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[md5_key]" 
+                                value="{$sys_config.md5_key|default='123456'}">
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>汇总最小金额</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[huizong_min]" 
+                                value="{$sys_config.huizong_min|default='0.001'}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span
+                                    class="form-required">*</span>汇总最大金额</label>
+                            <div class="col-md-6 col-sm-10">
+                                <input type="text" class="form-control" name="sys_config[huizong_max]" 
+                                value="{$sys_config.huizong_max|default='1'}">
+                            </div>
+                        </div>-->
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="1">
+                                    {:lang('SAVE')}
+                                </button>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>页面列表</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">页面管理</a>
+                        <a href="{:url('AdminPage/add')}" class="btn btn-primary btn-xs">添加页面</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="well form-inline margin-top-20" method="post" action="{:url('AdminPage/index')}">
+                        标题:
+                        <input type="text" class="form-control" name="keyword" style="width: 200px;" value="{$keyword|default=''}" placeholder="请输入关键字">
+                        <button class="btn btn-primary">搜索</button>
+                    </form>
+                    <form class="js-ajax-form" action="" method="post">
+                        <div class="table-actions">
+                            <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('AdminPage/delete')}" data-subcheck="true" data-msg="{:lang('DELETE_CONFIRM_MESSAGE')}">{:lang('DELETE')}
+                            </button>
+                        </div>
+                        <table class="table table-hover table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th width="16">
+                                <label>
+                                <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
+                                </label>
+                            </th>
+                            <th width="100">
+                                ID
+                            </th>
+                            <th>
+                                标题
+                            </th>
+                            <th width="80">
+                                作者
+                            </th>
+                            <th width="160">
+                                发布时间
+                            </th>
+                            <th width="80">
+                                状态
+                            </th>
+                            <th width="120">
+                                操作
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <php>$status=array("1"=>'已发布',"0"=>'未发布');</php>
+                        <foreach name="pages" item="vo">
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}">
+                            </td>
+                            <td>
+                                {$vo.id}
+                            </td>
+                            <td>
+                                <a href="{:url('portal/page/index',array('id'=>$vo['id']))}" target="_blank">
+                                        {$vo.post_title}
+                                </a>
+                            </td>
+                            <td>
+                                {$vo.user_nickname}
+                            </td>
+                            <td>
+                                <empty name="vo.published_time">
+                                        未发布
+                                <else/>
+                                        {:date('Y-m-d H:i',$vo['published_time'])}
+                                </empty>
+                            </td>
+                            <td>
+                                <notempty name="vo.post_status">
+                                <a data-toggle="tooltip" title="已发布"><i class="fa fa-check"></i></a>
+                                <else/>
+                                <a data-toggle="tooltip" title="未发布"><i class="fa fa-close"></i></a>
+                                </notempty>
+                            </td>
+                            <td>
+                                <a href="{:url('AdminPage/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                                <a href="{:url('AdminPage/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DELETE')}</a>
+                            </td>
+                        </tr>
+                        </foreach>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th width="16">
+                                <label>
+                                <input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x">
+                                </label>
+                            </th>
+                            <th width="100">
+                                ID
+                            </th>
+                            <th>
+                                标题
+                            </th>
+                            <th width="80">
+                                作者
+                            </th>
+                            <th width="160">
+                                发布时间
+                            </th>
+                            <th width="80">
+                                状态
+                            </th>
+                            <th width="120">
+                                操作
+                            </th>
+                        </tr>
+                        </tfoot>
+                        </table>
+                        <div class="pagination">{$page}</div>
+                        <div class="table-actions">
+                            <button class="btn btn-danger btn-sm js-ajax-submit" type="submit" data-action="{:url('AdminPage/delete')}"
+                                    data-subcheck="true" data-msg="你确定删除吗？">{:lang('DELETE')}
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

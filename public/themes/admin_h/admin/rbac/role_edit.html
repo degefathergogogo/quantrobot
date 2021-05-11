@@ -1,0 +1,67 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>编辑角色</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('rbac/index')}" class="btn btn-primary btn-xs">角色管理</a>
+                        <a href="{:url('rbac/roleadd')}" class="btn btn-primary btn-xs">添加角色</a>
+                        <a href="#" class="btn btn-primary btn-xs active">编辑角色</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form action="{:url('rbac/roleeditpost')}" method="post" class="form-horizontal js-ajax-form margin-top-20">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('ROLE_NAME')}</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="input-name" name="name" value="{$data.name}" required>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{:lang('ROLE_DESCRIPTION')}</label>
+                                    <div class="col-md-8">
+                                        <textarea type="text" class="form-control" id="input-remark" name="remark">{$data.remark}</textarea>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{:lang('STATUS')}</label>
+                                    <div class="col-md-8">
+                                        <label class="radio-inline">
+                                            <php>$active_true_checked=($data['status']==1)?"checked":"";</php>
+                                            <input type="radio" name="status" value="1" {$active_true_checked}> {:lang('ENABLED')}
+                                        </label>
+                                        <label class="radio-inline">
+                                            <php>$active_false_checked=($data['status']==0)?"checked":"";</php>
+                                            <input type="radio" name="status" value="0" {$active_false_checked}> {:lang('DISABLED')}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed">
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-md-8">
+                                        <input type="hidden" name="id" value="{$data.id}"/>
+                                        <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                                        <a class="btn btn-default" href="{:url('admin/rbac/index')}">{:lang('BACK')}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__STATIC__/js/admin.js"></script>
+    </body>
+    </html>

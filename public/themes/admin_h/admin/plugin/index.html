@@ -1,0 +1,87 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>插件列表</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">{:lang('ADMIN_PLUGIN_INDEX')}</a>
+                    </div>
+                    </div>
+                    <form action="" method="post" class="margin-top-20">
+                        <php>
+                            $status=array("1"=>'开启',"0"=>'禁用',"3"=>'未安装');
+                        </php>
+                    <div class="ibox-content">
+                        <table class="table table-hover" id="menus-table">
+                            <thead>
+                                <tr>
+                                    <th>插件名称</th>
+                                    <th>插件标识</th>
+                                    <th>描述</th>
+                                    <th>作者</th>
+                                    <th width="60">状态</th>
+                                    <th width="210">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <foreach name="plugins" item="vo">
+                                    <tr>
+                                        <td>{$vo.title}</td>
+                                        <td>{$vo.name}</td>
+                                        <td>{$vo.description}</td>
+                                        <td>{$vo.author}</td>
+                                        <td>{$status[$vo['status']]}</td>
+                                        <td>
+                                            <if condition="$vo['status']==3">
+                                                <a href="{:url('plugin/install',array('name'=>$vo['name']))}" class="js-ajax-dialog-btn"
+                                                   data-msg="确定安装该插件吗？">安装</a>
+                                                <else/>
+                                                <php>$config=json_decode($vo['config'],true);</php>
+                                                <if condition="!empty($config)">
+                                                    <empty name="config.custom_config">
+                                                        <a href="{:url('plugin/setting',array('id'=>$vo['id']))}">设置</a>
+                                                        <else/>
+                                                        <a href="{:cmf_plugin_url($vo['name'].'://AdminIndex/setting')}">设置</a>
+                                                    </empty>
+                                                    <else/>
+                                                    <a href="javascript:;" style="color: #ccc;">设置</a>
+                                                </if>
+
+                                                <if condition="!empty($vo['has_admin'])">
+                                                    <a href="javascript:parent.openIframeLayer('{:cmf_plugin_url($vo['name'].'://AdminIndex/index')}','plugin_{$vo.name}','{$vo.title}')">管理</a>
+                                                    <else/>
+                                                    <a href="javascript:;" style="color: #ccc;">管理</a>
+                                                </if>
+
+                                                <a href="{:url('plugin/update',array('name'=>$vo['name']))}" class="js-ajax-dialog-btn"
+                                                   data-msg="确定更新该插件吗？">更新</a>
+
+                                                <if condition="$vo['status']==0">
+                                                    <a href="{:url('plugin/toggle',array('id'=>$vo['id'],'enable'=>1))}"
+                                                       class="js-ajax-dialog-btn" data-msg="确定启用该插件吗？">启用</a>
+                                                    <else/>
+                                                    <a href="{:url('plugin/toggle',array('id'=>$vo['id'],'disable'=>1))}"
+                                                       class="js-ajax-dialog-btn" data-msg="确定禁用该插件吗？">禁用</a>
+                                                </if>
+
+                                                <a href="{:url('plugin/uninstall',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                                                   data-msg="确定卸载该插件吗？">卸载</a>
+                                            </if>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                            </tbody>
+                        </table>
+                    </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

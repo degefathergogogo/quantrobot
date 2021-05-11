@@ -1,0 +1,189 @@
+<include file="public@header"/>
+<style>
+.gw_num{border: 1px solid #dbdbdb;width: 110px;line-height: 26px;overflow: hidden;}
+.gw_num em{display: block;height: 26px;width: 26px;float: left;color: #7A7979;border-right: 1px solid #dbdbdb;text-align: center;cursor: pointer;}
+.gw_num .num{display: block;float: left;text-align: center;width: 52px;font-style: normal;font-size: 14px;line-height: 24px;border: 0;}
+.gw_num em.add{float: right;border-right: 0;border-left: 1px solid #dbdbdb;}
+</style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户列表</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/index')}">
+                        用户ID：
+                        <input class="form-control" type="text" name="uid" style="width: 200px;" value="{:input('request.uid')}"
+                               placeholder="请输入用户ID">
+                        关键字：
+                        <input class="form-control" type="text" name="keyword" style="width: 200px;" value="{:input('request.keyword')}"
+                               placeholder="用户名/昵称/邮箱/手机">
+                        <input type="submit" class="btn btn-primary" value="搜索"/>
+                        <a class="btn btn-danger" href="{:url('user/adminIndex/index')}">清空</a>
+                    </form>
+                    <form class="js-ajax-form" action="" method="post">
+                        <table class="table table-hover table-bordered table-list">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>推荐人ID</th>
+                <th>{:lang('USERNAME')}</th>
+                <th>{:lang('NICENAME')}</th>
+                <th>{:lang('AVATAR')}</th>
+                <th>{:lang('EMAIL')}</th>
+                <th>手机</th>
+                <th>安全认证等级</th>
+                <th>支付密码</th>
+                <th>谷歌二次验证</th>
+                <th>{:lang('REGISTRATION_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_IP')}</th>
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+                        </tr>
+                        </thead>
+                        <php>
+                $user_statuses=array("0"=>lang('USER_STATUS_BLOCKED'),"1"=>lang('USER_STATUS_ACTIVATED'),"2"=>lang('USER_STATUS_UNVERIFIED'));
+            </php>
+                        <tbody>
+                        <foreach name="list" item="vo">
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.parent_user_id}</td>
+                    <td>{$vo['user_login']?$vo['user_login']:($vo['mobile']?$vo['mobile']:lang('THIRD_PARTY_USER'))}
+                    </td>
+                    <td>{$vo['user_nickname']?$vo['user_nickname']:lang('NOT_FILLED')}</td>
+                    <td>
+                        <empty name="$vo['avatar']">
+                            <img width="25" height="25" src="__STATIC__/images/headicon.png">
+                            <else />
+                            <a href="javascript:parent.imagePreviewDialog('{:cmf_get_image_url($vo['avatar'])}')">
+                            <img width="25" height="25" src="{:cmf_get_image_url($vo['avatar'])}"/>
+                            </a>
+                        </empty>
+                    </td>
+                    <td>{$vo.user_email}</td>
+                    <td>{$vo.mobile}</td>
+                    <td>  
+                        <div class="gw_num">
+                            <em class="jian">-</em><input type="text" value="{$vo.auth_id}" id="gwnum_{$vo.id}" class="num"/><em class="add">+</em>
+                        </div>
+                    </td>
+                    <td><eq name="vo.has_paypwd" value="1">
+                            <span class="label label-info">是</span>
+                        <else />
+                        <span class="label label-default">否</span>
+                        </eq>
+                    </td>
+                    <td><eq name="vo.is_google_check" value="1">
+                            <span class="label label-info">是</span>
+                        <else />
+                        <span class="label label-default">否</span>
+                        </eq>
+                    </td>
+                    <td>{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+                    <td>{:date('Y-m-d H:i:s',$vo['last_login_time'])}</td>
+                    <td>{$vo.last_login_ip}</td>
+                    <td>{$user_statuses[$vo['user_status']]}</td>
+                    <td>
+                        <neq name="vo.id" value="1">
+                            <empty name="vo.user_status">
+                                <a href="{:url('adminIndex/cancelban',array('id'=>$vo['id']))}"
+                                   class="js-ajax-dialog-btn"
+                                   data-msg="{:lang('ACTIVATE_USER_CONFIRM_MESSAGE')}">{:lang('ACTIVATE_USER')}</a>
+                                <else/>
+                                <a href="{:url('adminIndex/ban',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn"
+                                   data-msg="{:lang('BLOCK_USER_CONFIRM_MESSAGE')}">{:lang('BLOCK_USER')}</a>
+                            </empty>
+                            <else/>
+                            <a style="color: #ccc;">{:lang('BLOCK_USER')}</a>
+                        </neq>
+                    </td>
+                        </tr>
+                        </foreach>
+                        </tbody>
+                        <tfoot>
+                        <!-- <tr>
+                            <th>ID</th>
+                <th>{:lang('USERNAME')}</th>
+                <th>{:lang('NICENAME')}</th>
+                <th>{:lang('AVATAR')}</th>
+                <th>{:lang('EMAIL')}</th>
+                <th>手机</th>
+                <th>{:lang('REGISTRATION_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_TIME')}</th>
+                <th>{:lang('LAST_LOGIN_IP')}</th>
+                <th>{:lang('STATUS')}</th>
+                <th>{:lang('ACTIONS')}</th>
+                        </tr> -->
+                        </tfoot>
+                        </table>
+                        <div class="pagination">
+                            {$page|default=''}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+
+<script>
+    $(document).ready(function(){
+        //加的效果
+        $(".add").click(function(){
+            var n=$(this).prev().val();
+            var id = $(this).prev().attr('id');
+            if(n == 5){
+              alert('已经是最高安全级别！');
+              return
+            }
+            var num=parseInt(n)+1;
+            var caozuo=  jiajian(id,num);
+            if(caozuo ){
+                $(this).prev().val(num);
+            }
+        });
+        //减的效果
+        $(".jian").click(function(){
+            var n=$(this).next().val();
+            var id = $(this).next().attr('id');
+            var num=parseInt(n)-1;
+            if(n == 1){
+              alert('已经是最低安全级别！');
+              return
+            }
+            var caozuo=  jiajian( id , num );
+            if(caozuo ){
+                $(this).next().val(num);
+            }
+        });
+    });
+    function jiajian( id , num ){
+        var ids= id.split('_');
+        var nums= num;
+     
+        $.ajax({
+                url:"{:url('AdminIndex/up_auth') }",
+                type:"post",
+                async: false,
+                data:{id:ids[1],num:nums},
+                success:function(data){
+                  console.log(data);
+                  return true;
+                },
+                error:function (error  ){
+                    console.log(error);
+                    return false;
+                }
+            })
+            return true;
+    }
+</script>
+</body>
+</html>

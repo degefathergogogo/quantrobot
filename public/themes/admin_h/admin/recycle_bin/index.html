@@ -1,0 +1,48 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>回收站列表</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>内容名称</th>
+                                    <th>内容类型</th>
+                                    <th>删除时间</th>
+                                    <th>操作人</th>
+                                    <th>{:lang('ACTIONS')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <foreach name="list" item="vo">
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>
+                                            <span class="line">{$vo.name}</span>
+                                        </td>
+                                        <td>{:lang('TABLE_'.strtoupper($vo['table_name']))}</td>
+                                        <td> {:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+                                        <td>{:$vo.user.user_login}</td>
+                                        <td>
+                                            <a href="{:url('RecycleBin/restore',array('id'=>$vo['id']))}" class="js-ajax-dialog-btn" data-msg="确定要还原吗？">还原</a>
+                                            <a href="{:url('RecycleBin/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:lang('DELETE')}</a>
+                                        </td>
+                                    </tr>
+                                </foreach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

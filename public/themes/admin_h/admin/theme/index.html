@@ -1,0 +1,88 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>模板列表</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">所有模板</a>
+                        <a href="{:url('theme/install')}" class="btn btn-primary btn-xs">安装模板</a>
+                    </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="js-ajax-form" action="{:url('Menu/listOrder')}" method="post">
+                        <table class="table table-hover table-bordered table-list">
+                            <thead>
+                                <tr>
+                                    <th>模板</th>
+                                    <th>模板名称</th>
+                                    <th>版本号</th>
+                                    <th>语言</th>
+                                    <th>作者</th>
+                                    <th>模板描述</th>
+                                    <th width="180">{:lang('ACTIONS')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <foreach name="themes" item="vo">
+                                <tr>
+                                    <td>
+                                        {$vo.theme}
+                                        <eq name="vo.theme" value="$default_theme">
+                                            <span class="label label-success">当前启用</span>
+                                        </eq>
+                                    </td>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.version}</td>
+                                    <td>{$vo.lang}</td>
+                                    <td>{$vo.author}</td>
+                                    <td>{$vo.description}</td>
+                                    <td>
+                                        <a href="javascript:parent.openIframeLayer('{:url('theme/files',array('theme'=>$vo['theme']))}','{$vo.name}文件列表',{});">设计</a>
+                                        <a href="{:url('theme/update',array('theme'=>$vo['theme']))}" class="js-ajax-dialog-btn"
+                                           data-msg="确定更新此模板吗？">更新</a>
+
+
+                                        <if condition="($vo.name == 'simpleboot3') OR ($vo.theme == $default_theme) ">
+                                            <font color="#cccccc">卸载</font>
+                                            <else />
+                                            <a href="{:url('theme/uninstall',array('theme'=>$vo['theme']))}" class="js-ajax-dialog-btn"
+                                               data-msg="您设置的模板数据将被删除，<br>确定卸载此模板吗？">卸载</a>
+                                        </if>
+
+
+
+                                        <if condition="$vo.theme == $default_theme">
+                                            <font color="#cccccc">启用</font>
+                                            <else />
+                                            <a href="{:url('theme/active',array('theme'=>$vo['theme']))}" class="js-ajax-dialog-btn"
+                                               data-msg="确定使用此模板吗？">启用</a>
+                                        </if>
+                                    </td>
+                                </tr>
+                            </foreach>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>模板</th>
+                                    <th>模板名称</th>
+                                    <th>版本号</th>
+                                    <th>语言</th>
+                                    <th>作者</th>
+                                    <th>模板描述</th>
+                                    <th width="180">{:lang('ACTIONS')}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                            </form>
+                    </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

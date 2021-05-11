@@ -1,0 +1,67 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>菜单列表</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">后台菜单</a>
+                        <a href="{:url('Menu/add')}" class="btn btn-primary btn-xs">添加菜单</a>
+                        <a href="{:url('Menu/lists')}" class="btn btn-primary btn-xs">所有菜单</a>
+                    </div>
+                    </div>
+                    <form class="js-ajax-form" action="{:url('Menu/listOrder')}" method="post">
+                    <div class="ibox-content">
+                        <div class="table-actions">
+                            <button class="btn btn-primary btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+                        </div>
+                        <table class="table table-hover" id="menus-table">
+                            <thead>
+                                <tr>
+                                    <th>{:lang('SORT')}</th>
+                                    <th>ID</th>
+                                    <th>{:lang('NAME')}</th>
+                                    <th>url</th>
+                                    <th>{:lang('STATUS')}</th>
+                                    <th>{:lang('ACTIONS')}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {$category}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>{:lang('SORT')}</th>
+                                    <th>ID</th>
+                                    <th>{:lang('NAME')}</th>
+                                    <th>url</th>
+                                    <th>{:lang('STATUS')}</th>
+                                    <th>{:lang('ACTIONS')}</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                            <div class="table-actions">
+                                <button class="btn btn-primary btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+                            </div>
+                    </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+<script>
+    $(document).ready(function() {
+        Wind.css('treeTable');
+        Wind.use('treeTable', function() {
+            $("#menus-table").treeTable({
+                indent : 20
+            });
+        });
+    });
+</script>
+</body>
+</html>

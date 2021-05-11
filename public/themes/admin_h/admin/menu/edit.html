@@ -1,0 +1,119 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>编辑菜单</h5>
+                    <div class="ibox-tools">
+                        <a href="#" class="btn btn-primary btn-xs active">编辑菜单</a>
+                        <a href="{:url('Menu/index')}" class="btn btn-primary btn-xs">后台菜单</a>
+                        <a href="{:url('Menu/add')}" class="btn btn-primary btn-xs">添加菜单</a>
+                        <a href="{:url('Menu/lists')}" class="btn btn-primary btn-xs">所有菜单</a>
+                    </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal js-ajax-form" action="{:url('menu/editPost')}" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>上级菜单</label>
+                                <div class="col-md-8">
+                                    <select class="form-control m-b" name="parent_id" id="input-parent_id">
+                                        <option value="0">作为一级菜单</option>{$select_category}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>名称</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-name" name="name" value="{$data.name}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>应用</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-app" name="app" value="{$data.app}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>控制器</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-controller" name="controller" value="{$data.controller}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><span class="form-required">*</span>方法</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-action" name="action" value="{$data.action}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">参数</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-param" name="param" value="{$data.param}">
+                                    <span class="help-block m-b-none">例:id=3&amp;p=3</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">图标</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" id="input-icon" name="icon" value="{$data.icon}">
+                                    <span class="help-block m-b-none">不带前缀fa-，如fa-user => user</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">备注</label>
+                                <div class="col-md-8">
+                                  <textarea class="form-control" id="input-remark" name="remark" name="remark"></textarea>   
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态</label>
+                                <div class="col-md-8">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="1">在左侧菜单显示</option>
+                                        <php>$status_selected=empty($data['status'])?"selected":"";</php>
+                                        <option value="0" {$status_selected}>在左侧菜单隐藏</option>
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">类型</label>
+                                <div class="col-md-8">
+                                    <select class="form-control m-b" name="type" id="input-type">
+                                        <option value="1">有界面可访问菜单</option>
+                                        <php>$type2_selected=$data['type']==2?"selected":"";</php>
+                                        <option value="2" {$type2_selected}>无界面可访问菜单</option>
+                                        <php>$type_selected=$data['type']==0?"selected":"";</php>
+                                        <option value="0" {$type_selected}>只作为菜单</option>
+                                    </select>
+                                </div>
+                            </div>                           
+                            <div class="hr-line-dashed"></div>
+                            <input type="hidden" name="id" value="{$data.id}" />
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary js-ajax-submit" type="submit">保存内容</button>
+                                    <a class="btn btn-default" href="{:url('menu/index')}">{:lang('BACK')}</a>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+</body>
+</html>

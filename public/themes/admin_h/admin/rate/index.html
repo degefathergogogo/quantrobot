@@ -1,0 +1,55 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>汇率管理</h5>
+                        <div class="ibox-tools">
+                            <a href="#" class="btn btn-primary btn-xs active">汇率管理</a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <table class="table table-hover" id="menus-table">
+                            <thead>
+                                <tr>
+                                    <th width="60">ID</th>
+
+                            
+                                    <th>货币英文标识</th>
+                                    <th>货币符号</th>
+                                    <th>对美元汇率</th>
+                                    <th>货币名称</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <eq name="datas" value="">
+                                    <tr> 
+                                        <td colspan="5" style="text-align: center">暂无数据</td>
+                                    </tr>
+                                <else />
+                                <foreach name="datas" item="vo">
+                                    <tr>
+                                        <td> {$vo.id} </td>
+                                        <td> {$vo.currency_symbol} </td>
+                                        <td>{$vo.currency_symbol_char} </td>
+                                        <td>{$vo.usd_rate}</td>
+                                        <td>{$vo.name}</td>
+                                        <td><a href="{:url('Rate/del',['id'=> $vo.id  ]  )}" class="js-ajax-delete">删除</a><td></td>
+                                    </tr>
+                                </foreach>
+                                </eq>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="__STATIC__/js/admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<include file="public@header"/>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInUp js-check-wrap">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加</h5>
+                    <div class="ibox-tools">
+                        <a href="{:url('push/index')}" class="btn btn-primary btn-xs active">列表</a>
+                        <a href="{:url('push/add')}" class="btn btn-primary btn-xs">添加推送</a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal js-ajax-form" action="{:url('push/add')}" method="post">
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>标题</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-title" name="title" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>内容</label>
+                            <div class="col-sm-6">
+                                <textarea name="content" id="content" style="width: 98%; height: 80px;" placeholder="请输入内容"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>URL</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-url" name="url">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>发送类型</label>
+                            <div class="col-sm-6">
+                                <select name="type" class="normal_select" onchange="hide_user(this)">
+                                    <option value="2" selected="">广播资讯</option>
+                                    <option value="3" >指定用户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="user_login" style="display: none">
+                            <label class="col-sm-2 control-label"><span class="form-required">*</span>用户ID</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="input-username" name="user_id" value="0">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed">
+                        </div>
+
+                        
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-6">
+                                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('ADD')}</button>
+                                <a class="btn btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="__STATIC__/js/admin.js"></script>
+<script type="application/javascript">
+    function hide_user(obj){
+        if($(obj).val()==3){
+            $('#user_login').show()
+        }else{
+            $('#user_login').hide()
+        }
+    }
+</script>
+    </body>
+    </html>
