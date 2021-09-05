@@ -5,7 +5,7 @@
 ### 软件架构
 thinkphp - 量化后台和钱包后台  
 vue - 前端  
-python - 量化策略机器人  
+python - 量化机器人  
 
 可新增or定制策略
   
